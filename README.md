@@ -8,8 +8,7 @@ The goal is to combine orbital data, mathematical structure, and optimization to
 
 Project background:
 
-[Space Logistics.pptx](https://usarmywestpoint-my.sharepoint.com/\:p:/g/personal/leo_langou_westpoint_edu/IQAlXKRWS8_cTKctUxxl5rlsAeXy5EAIVaQiy3-u5RYCvY?e=T1BSxJ)
-
+https://usarmywestpoint-my.sharepoint.com/:p:/g/personal/leo_langou_westpoint_edu/IQAlXKRWS8_cTKctUxxl5rlsAeXy5EAIVaQiy3-u5RYCvYQ?e=NymldF
 ## Methodology
 
 ```text
