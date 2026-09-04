@@ -6,7 +6,7 @@ This project studies how future **space logistics infrastructure**, particularly
 
 The goal is to combine orbital data, mathematical structure, and optimization to identify useful logistics locations in GEO.
 
-Project background:
+Project workflow:
 
 https://usarmywestpoint-my.sharepoint.com/:p:/g/personal/leo_langou_westpoint_edu/IQAlXKRWS8_cTKctUxxl5rlsAeXy5EAIVaQiy3-u5RYCvYQ?e=NymldF
 ## Methodology
