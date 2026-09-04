@@ -1,1 +1,25 @@
-﻿raw/
+﻿# Data
+raw/
+data/raw/
+
+# Python environments
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Jupyter
+.ipynb_checkpoints/
+
+# VS Code user-specific files
+.vscode/
+
+# Environment variables / secrets
+.env
+
+# OS
+.DS_Store
+Thumbs.db
