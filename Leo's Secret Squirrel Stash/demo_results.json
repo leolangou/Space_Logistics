@@ -1,0 +1,332 @@
+{
+  "model_warning": "Educational surrogate only; replace the transfer-cost model before using results for mission design.",
+  "selected_depots": [
+    "DEPOT-LEO-030",
+    "DEPOT-LEO-090",
+    "DEPOT-MEO-000"
+  ],
+  "configuration": {
+    "depot_count": 3,
+    "redundancy": 2,
+    "coverage_threshold_km_s": 12.0,
+    "round_trip": true,
+    "objective_weights": {
+      "backup": 0.35,
+      "single_failure": 0.25,
+      "coverage_deficit": 20.0,
+      "disconnected_component": 1.0,
+      "cycle_reward": 0.05
+    }
+  },
+  "metrics": {
+    "objective": 17.35076332637925,
+    "mean_primary_delta_v_km_s": 5.972037852466118,
+    "mean_redundant_delta_v_km_s": 10.43604617254174,
+    "worst_single_failure_mean_delta_v_km_s": 8.447294396951246,
+    "weighted_coverage_deficit": 0.2857142857142857,
+    "coverage_counts": [
+      2,
+      2,
+      1,
+      2,
+      2,
+      1
+    ],
+    "topology_at_threshold": {
+      "epsilon_km_s": 12.0,
+      "vertices": 9,
+      "edges": 10,
+      "beta_0": 1,
+      "beta_1": 2
+    }
+  },
+  "betti_curve": [
+    {
+      "epsilon_km_s": 0.0,
+      "vertices": 9,
+      "edges": 0,
+      "beta_0": 9,
+      "beta_1": 0
+    },
+    {
+      "epsilon_km_s": 0.5,
+      "vertices": 9,
+      "edges": 1,
+      "beta_0": 8,
+      "beta_1": 0
+    },
+    {
+      "epsilon_km_s": 1.0,
+      "vertices": 9,
+      "edges": 1,
+      "beta_0": 8,
+      "beta_1": 0
+    },
+    {
+      "epsilon_km_s": 1.5,
+      "vertices": 9,
+      "edges": 1,
+      "beta_0": 8,
+      "beta_1": 0
+    },
+    {
+      "epsilon_km_s": 2.0,
+      "vertices": 9,
+      "edges": 1,
+      "beta_0": 8,
+      "beta_1": 0
+    },
+    {
+      "epsilon_km_s": 2.5,
+      "vertices": 9,
+      "edges": 1,
+      "beta_0": 8,
+      "beta_1": 0
+    },
+    {
+      "epsilon_km_s": 3.0,
+      "vertices": 9,
+      "edges": 1,
+      "beta_0": 8,
+      "beta_1": 0
+    },
+    {
+      "epsilon_km_s": 3.5,
+      "vertices": 9,
+      "edges": 1,
+      "beta_0": 8,
+      "beta_1": 0
+    },
+    {
+      "epsilon_km_s": 4.0,
+      "vertices": 9,
+      "edges": 1,
+      "beta_0": 8,
+      "beta_1": 0
+    },
+    {
+      "epsilon_km_s": 4.5,
+      "vertices": 9,
+      "edges": 1,
+      "beta_0": 8,
+      "beta_1": 0
+    },
+    {
+      "epsilon_km_s": 5.0,
+      "vertices": 9,
+      "edges": 1,
+      "beta_0": 8,
+      "beta_1": 0
+    },
+    {
+      "epsilon_km_s": 5.5,
+      "vertices": 9,
+      "edges": 1,
+      "beta_0": 8,
+      "beta_1": 0
+    },
+    {
+      "epsilon_km_s": 6.0,
+      "vertices": 9,
+      "edges": 1,
+      "beta_0": 8,
+      "beta_1": 0
+    },
+    {
+      "epsilon_km_s": 6.5,
+      "vertices": 9,
+      "edges": 5,
+      "beta_0": 4,
+      "beta_1": 0
+    },
+    {
+      "epsilon_km_s": 7.0,
+      "vertices": 9,
+      "edges": 6,
+      "beta_0": 3,
+      "beta_1": 0
+    },
+    {
+      "epsilon_km_s": 7.5,
+      "vertices": 9,
+      "edges": 7,
+      "beta_0": 2,
+      "beta_1": 0
+    },
+    {
+      "epsilon_km_s": 8.0,
+      "vertices": 9,
+      "edges": 7,
+      "beta_0": 2,
+      "beta_1": 0
+    },
+    {
+      "epsilon_km_s": 8.5,
+      "vertices": 9,
+      "edges": 7,
+      "beta_0": 2,
+      "beta_1": 0
+    },
+    {
+      "epsilon_km_s": 9.0,
+      "vertices": 9,
+      "edges": 7,
+      "beta_0": 2,
+      "beta_1": 0
+    },
+    {
+      "epsilon_km_s": 9.5,
+      "vertices": 9,
+      "edges": 7,
+      "beta_0": 2,
+      "beta_1": 0
+    },
+    {
+      "epsilon_km_s": 10.0,
+      "vertices": 9,
+      "edges": 9,
+      "beta_0": 1,
+      "beta_1": 1
+    },
+    {
+      "epsilon_km_s": 10.5,
+      "vertices": 9,
+      "edges": 9,
+      "beta_0": 1,
+      "beta_1": 1
+    },
+    {
+      "epsilon_km_s": 11.0,
+      "vertices": 9,
+      "edges": 10,
+      "beta_0": 1,
+      "beta_1": 2
+    },
+    {
+      "epsilon_km_s": 11.5,
+      "vertices": 9,
+      "edges": 10,
+      "beta_0": 1,
+      "beta_1": 2
+    },
+    {
+      "epsilon_km_s": 12.0,
+      "vertices": 9,
+      "edges": 10,
+      "beta_0": 1,
+      "beta_1": 2
+    },
+    {
+      "epsilon_km_s": 12.5,
+      "vertices": 9,
+      "edges": 10,
+      "beta_0": 1,
+      "beta_1": 2
+    },
+    {
+      "epsilon_km_s": 13.0,
+      "vertices": 9,
+      "edges": 11,
+      "beta_0": 1,
+      "beta_1": 3
+    },
+    {
+      "epsilon_km_s": 13.5,
+      "vertices": 9,
+      "edges": 13,
+      "beta_0": 1,
+      "beta_1": 5
+    },
+    {
+      "epsilon_km_s": 14.0,
+      "vertices": 9,
+      "edges": 13,
+      "beta_0": 1,
+      "beta_1": 5
+    },
+    {
+      "epsilon_km_s": 14.5,
+      "vertices": 9,
+      "edges": 13,
+      "beta_0": 1,
+      "beta_1": 5
+    },
+    {
+      "epsilon_km_s": 15.0,
+      "vertices": 9,
+      "edges": 13,
+      "beta_0": 1,
+      "beta_1": 5
+    },
+    {
+      "epsilon_km_s": 15.5,
+      "vertices": 9,
+      "edges": 13,
+      "beta_0": 1,
+      "beta_1": 5
+    },
+    {
+      "epsilon_km_s": 16.0,
+      "vertices": 9,
+      "edges": 15,
+      "beta_0": 1,
+      "beta_1": 7
+    },
+    {
+      "epsilon_km_s": 16.5,
+      "vertices": 9,
+      "edges": 15,
+      "beta_0": 1,
+      "beta_1": 7
+    },
+    {
+      "epsilon_km_s": 17.0,
+      "vertices": 9,
+      "edges": 15,
+      "beta_0": 1,
+      "beta_1": 7
+    },
+    {
+      "epsilon_km_s": 17.5,
+      "vertices": 9,
+      "edges": 17,
+      "beta_0": 1,
+      "beta_1": 9
+    },
+    {
+      "epsilon_km_s": 18.0,
+      "vertices": 9,
+      "edges": 18,
+      "beta_0": 1,
+      "beta_1": 10
+    },
+    {
+      "epsilon_km_s": 18.5,
+      "vertices": 9,
+      "edges": 18,
+      "beta_0": 1,
+      "beta_1": 10
+    },
+    {
+      "epsilon_km_s": 19.0,
+      "vertices": 9,
+      "edges": 18,
+      "beta_0": 1,
+      "beta_1": 10
+    },
+    {
+      "epsilon_km_s": 19.5,
+      "vertices": 9,
+      "edges": 18,
+      "beta_0": 1,
+      "beta_1": 10
+    },
+    {
+      "epsilon_km_s": 20.0,
+      "vertices": 9,
+      "edges": 18,
+      "beta_0": 1,
+      "beta_1": 10
+    }
+  ]
+}
