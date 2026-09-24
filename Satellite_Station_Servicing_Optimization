@@ -1,0 +1,123 @@
+"""Bridge from the Satellite_Code.py pipeline into the OFLP solver.
+
+Drop this next to oflp_geo.py and import it in the notebook after `good` and
+`history_df` exist.
+
+Typical use, appended to the end of the existing notebook:
+
+    from oflp_adapter import clients_from_notebook, run_oflp
+    clients = clients_from_notebook(good=good, history_df=history_df)
+    sol, slots = run_oflp(clients)
+    display(sol.depot_summary)
+    display(sol.assignment)
+"""
+
+from __future__ import annotations
+
+import numpy as np
+import pandas as pd
+
+from oflp_geo import (
+    OFLPParams, make_candidate_slots, solve_oflp,
+    elements_from_gp, elements_from_teme_timeseries,
+    allocation_cost_matrix, emleo_mass_ratios, A_GEO,
+)
+
+
+def clients_from_notebook(good: pd.DataFrame,
+                          history_df: pd.DataFrame | None = None,
+                          quality: tuple = ("excellent", "good"),
+                          radius_tol_km: float = 500.0,
+                          max_inc_deg: float = 15.0) -> pd.DataFrame:
+    """Build the OFLP client table from the notebook's frames.
+
+    Longitude comes from the propagated TEME snapshot (the only place it
+    exists); inclination and semimajor axis come from the GP mean elements when
+    history_df is supplied, since those are more trustworthy than the
+    z-amplitude estimate. Falls back to the TEME-only path otherwise.
+    """
+    g = good.copy()
+    g["time_utc"] = pd.to_datetime(g["time_utc"], utc=True)
+    if "sgp4_error" in g.columns:
+        g = g[g["sgp4_error"] == 0]
+    if "element_quality" in g.columns and quality:
+        g = g[g["element_quality"].isin(quality)]
+
+    teme = elements_from_teme_timeseries(g)
+
+    if history_df is not None:
+        try:
+            gp = elements_from_gp(history_df)
+            merged = teme.merge(
+                gp[["norad_cat_id", "a_km", "ecc", "inc_deg"]],
+                on="norad_cat_id", how="left", suffixes=("_teme", "_gp"))
+            # prefer GP elements, fall back to TEME-derived
+            merged["a_km"] = merged["a_km_gp"].fillna(merged["a_km_teme"])
+            merged["ecc"] = merged["ecc_gp"].fillna(merged["ecc_teme"])
+            merged["inc_deg"] = merged["inc_deg_gp"].fillna(
+                merged["inc_deg_teme"])
+            teme = merged[["norad_cat_id", "object_name", "a_km", "ecc",
+                           "inc_deg", "lon_deg"]]
+        except Exception as e:
+            print(f"[oflp_adapter] GP merge skipped ({e}); using TEME only.")
+
+    n0 = len(teme)
+    teme = teme.dropna(subset=["a_km", "inc_deg", "lon_deg"])
+    teme = teme[np.abs(teme["a_km"] - A_GEO) <= radius_tol_km]
+    teme = teme[teme["inc_deg"] <= max_inc_deg]
+    print(f"[oflp_adapter] clients: {len(teme)} kept of {n0} "
+          f"(GEO band +/-{radius_tol_km:.0f} km, inc <= {max_inc_deg:.0f} deg)")
+    return teme.reset_index(drop=True)
+
+
+def run_oflp(clients: pd.DataFrame,
+             params: OFLPParams | None = None,
+             lon_step_deg: float = 15.0,
+             dalt_km=(0.0, 300.0, 800.0),
+             inc_deg=(0.0, 2.0, 5.0),
+             time_limit_s: float = 300.0):
+    """Build candidate slots, solve, and return (solution, slots)."""
+    p = params or OFLPParams()
+    slots = make_candidate_slots(
+        lon_deg=np.arange(0.0, 360.0, lon_step_deg),
+        dalt_km=dalt_km, inc_deg=inc_deg)
+
+    c, dvr, feas = allocation_cost_matrix(slots, clients, p)
+    print(f"[oflp_adapter] slots={len(slots)} clients={len(clients)} "
+          f"| roundtrip dv {np.nanmin(dvr):.4f}-{np.nanmax(dvr):.4f} km/s "
+          f"| prop {np.nanmin(c):.1f}-{np.nanmax(c):.1f} kg "
+          f"| feasible {feas.sum()}/{feas.size}")
+
+    sol = solve_oflp(slots, clients, p, time_limit_s=time_limit_s,
+                     verbose=False)
+    print(f"[oflp_adapter] {sol.status} | depots={len(sol.open_slots)} "
+          f"| EMLEO={sol.objective_emleo_kg:,.0f} kg "
+          f"| {sol.solve_time_s:.1f} s")
+    return sol, slots
+
+
+def mass_breakdown(sol, p: OFLPParams) -> pd.DataFrame:
+    """Decompose each depot's wet mass into dry / payload / transfer propellant.
+
+    This is the diagnostic that tells you whether depot count is being driven
+    by the launch-mass cap (payload-dominated) or by transfer geography.
+    """
+    rows = []
+    for _, d in sol.depot_summary.iterrows():
+        mem = sol.assignment[sol.assignment["depot_slot"] == d["depot_slot"]]
+        payload = p.D * p.m_s_L * len(mem)
+        prop = p.D * mem["roundtrip_prop_kg"].sum()
+        rows.append({
+            "depot_slot": d["depot_slot"],
+            "lon_deg": d["lon_deg"],
+            "inc_deg": d["inc_deg"],
+            "n_clients": len(mem),
+            "dry_kg": p.m_d_dry,
+            "payload_kg": payload,
+            "transfer_prop_kg": prop,
+            "wet_kg": p.m_d_dry + payload + prop,
+            "cap_kg": p.m_l_max,
+            "cap_utilization": (p.m_d_dry + payload + prop) / p.m_l_max,
+            "transfer_frac_of_wet": prop / (p.m_d_dry + payload + prop),
+        })
+    return pd.DataFrame(rows)
