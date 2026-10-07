@@ -1,3 +1,17 @@
+#DESCRIPTION
+'''
+This optimization was done on TDA distance data.
+We minimize the total round-trip Δv summed over all satellites going to their assigned depots.
+
+1. Every satellite is assigned to exactly one depot.
+2. Satellites can only be assigned to open depots.
+3. Exactly p depots are open, and the model is re-solved for each p in a sweep. (SUM Y_j = p)
+4. The total demand of the satellites assigned to a depot cannot exceed that depot's inventory (2,500 kg).
+5. A satellite can only be assigned to a depot if its round-trip Δv is within the 0.70 km/s sortie limit (F_ij = 1 if it is, 0 if not). (Not seen by solver)
+6. X_ij and Y_j are binary.
+'''
+
+
 # %% Step A — imports
 # Run this in VS Code's Interactive Window (Shift+Enter per cell), from the
 # project root, with data_pipeline.py / oflp_geo.py / oflp_fa.py /
