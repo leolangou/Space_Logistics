@@ -1,0 +1,7 @@
+metric,value
+mean_primary_one_way_dv_m_s,317.8532364654694
+mean_backup_one_way_dv_m_s,615.6598536427834
+worst_primary_one_way_dv_m_s,1850.7333533180736
+worst_single_failure_mean_dv_m_s,504.7258109287589
+q_coverage_fraction,0.4803921568627451
+targets_without_q_coverage,53.0

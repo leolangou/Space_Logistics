@@ -1,0 +1,3 @@
+method,selected_stations,station_longitudes_deg,mean_primary_dv_m_s,mean_backup_dv_m_s,q_coverage_percent,targets_without_q_coverage,worst_N_minus_1_mean_dv_m_s,beta_0,beta_1
+Lowest-cost p-median,"FS_09, FS_18, FS_29","-100, -10, 100",317.8532364654694,615.6598536427834,48.03921568627451,53,504.7258109287589,23,49
+Coverage-constrained (60% target),"FS_08, FS_12, FS_27","-110, -70, 80",326.5437842014724,523.9907133609702,60.78431372549019,40,424.61086675838175,24,63

@@ -1,0 +1,31 @@
+{
+  "model_scope": "Static F0 screening study. The cost matrix is a snapshot-based surrogate, not a validated time-dependent rendezvous solution.",
+  "depot_count": 3,
+  "redundancy_q": 2,
+  "coverage_threshold_km_s": 0.5,
+  "selected_station_ids": [
+    "FS_09",
+    "FS_18",
+    "FS_29"
+  ],
+  "selected_station_longitudes_deg": [
+    -100.0,
+    -10.0,
+    100.0
+  ],
+  "topology_at_operational_threshold": {
+    "epsilon_km_s": 0.5,
+    "vertices": 105,
+    "edges": 131,
+    "beta_0": 23,
+    "beta_1": 49
+  },
+  "metrics": {
+    "mean_primary_one_way_dv_m_s": 317.8532364654694,
+    "mean_backup_one_way_dv_m_s": 615.6598536427834,
+    "worst_primary_one_way_dv_m_s": 1850.7333533180736,
+    "worst_single_failure_mean_dv_m_s": 504.7258109287589,
+    "q_coverage_fraction": 0.4803921568627451,
+    "targets_without_q_coverage": 53.0
+  }
+}
