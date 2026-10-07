@@ -1,0 +1,197 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage[margin=1in]{geometry}
+
+\title{Sustained Space Maneuver: Technical Notes}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Scope and convention}
+
+These notes retain mathematical and system-level material relevant to sustained
+space maneuver. Unless stated otherwise, orbit descriptions use an
+Earth-centered inertial frame and an explicitly stated epoch.
+
+\section{Delta-v}
+
+Delta-v, denoted $\Delta v$, is a measure of the velocity change supplied by a
+spacecraft's propulsion system. It is reported in units of speed, commonly
+$\mathrm{m/s}$ or $\mathrm{km/s}$, but is principally a measure of maneuvering
+capability and propellant demand.
+
+For an impulsive maneuver, the velocity-vector change is
+\begin{equation}
+  \Delta \boldsymbol{v} = \boldsymbol{v}^{+} - \boldsymbol{v}^{-},
+\end{equation}
+where $-$ and $+$ denote the states immediately before and after the burn. The
+associated scalar delta-v is $\lVert\Delta\boldsymbol{v}\rVert$.
+
+For a finite, sustained thrust maneuver, an idealized propulsive delta-v
+expenditure is
+\begin{equation}
+  \Delta v_{\mathrm{prop}} = \int_{t_0}^{t_f} \lVert\boldsymbol{a}_{T}(t)\rVert\,dt,
+\end{equation}
+where $\boldsymbol{a}_{T}$ is the thrust acceleration. This is distinct from the
+net inertial velocity change, because gravity and other perturbing accelerations
+also change the spacecraft velocity.
+
+The ideal rocket equation relates available delta-v to the mass ratio:
+\begin{equation}
+  \Delta v = I_{sp} g_0 \ln\!\left(\frac{m_0}{m_f}\right),
+\end{equation}
+where $I_{sp}$ is specific impulse, $g_0$ is standard gravity, and $m_0$ and
+$m_f$ are the initial and final vehicle masses. A mission delta-v budget is the
+cumulative propulsive delta-v allocated across maneuvers, including any
+station-keeping or sustained low-thrust operations.
+
+\section{Classical orbital elements}
+
+The six classical orbital elements (COEs) specify a Keplerian orbit at a given
+epoch:
+\begin{center}
+\begin{tabular}{lll}
+  $a$ & semi-major axis & orbit size and specific orbital energy \\
+  $e$ & eccentricity & orbit shape \\
+  $i$ & inclination & tilt of the orbital plane \\
+  $\Omega$ & right ascension of the ascending node (RAAN) & orientation of the line of nodes \\
+  $\omega$ & argument of periapsis & orientation of periapsis within the plane \\
+  $\nu$ & true anomaly & instantaneous position measured from periapsis
+\end{tabular}
+\end{center}
+
+Here, $\Omega$ is measured in the reference plane from the positive $x$ axis to
+the ascending node; $\omega$ is measured in the orbital plane from the ascending
+node to periapsis; and $\nu$ is measured in the orbital plane from periapsis to
+the spacecraft. The usual element set has singularities for circular or
+equatorial orbits: periapsis is undefined when $e=0$, and the line of nodes is
+undefined when $i=0$ or $\pi$. Alternative nonsingular element sets should be
+used in those regimes.
+
+The right ascension of the ascending node (RAAN), $\Omega$, therefore specifies
+the inertial direction of the orbit plane's northbound equatorial crossing. In a
+J2000 ECI frame it is measured eastward, from the $+x$ direction to the
+ascending node, over $[0,2\pi)$. RAAN identifies the line of nodes rather than
+the spacecraft's instantaneous location on the orbit.
+
+Perturbations cause osculating COEs to vary with time. Consequently, a reported
+element set should state the reference frame, the epoch, and whether the elements
+are osculating or mean elements.
+
+\section{J2000 Earth-centered inertial frame}
+
+J2000 ECI denotes an Earth-centered, non-Earth-rotating reference frame whose
+orientation is tied to the J2000 epoch. Its origin is Earth's center of mass.
+Under the conventional J2000/EME2000 description, the $+z$ axis is aligned with
+the mean terrestrial north-pole direction at J2000, the $+x$ axis points toward
+the mean equinox of J2000, and the $+y$ axis completes a right-handed triad. The
+J2000.0 epoch is Julian Date $2451545.0$, corresponding to 2000 January 1,
+12:00~TT.
+
+An ECI frame does not rotate daily with Earth and is therefore convenient for
+propagation and expressing inertial position $\boldsymbol r$ and velocity
+$\boldsymbol v$. An Earth-fixed frame instead rotates with Earth and is more
+appropriate for ground tracks and terrestrial locations. In precise work,
+EME2000 and the Geocentric Celestial Reference Frame (GCRF) should not be
+treated as exactly interchangeable, even though the distinction is often small
+for introductory or approximate applications.
+
+\section{Point of closest approach}
+
+For two objects with inertial position vectors $\boldsymbol r_1(t)$ and
+$\boldsymbol r_2(t)$, define the relative position and separation as
+\begin{equation}
+  \boldsymbol\rho(t)=\boldsymbol r_2(t)-\boldsymbol r_1(t),
+  \qquad d(t)=\lVert\boldsymbol\rho(t)\rVert.
+\end{equation}
+Over a specified encounter window $[t_0,t_f]$, the time of closest approach is
+\begin{equation}
+  t_{\mathrm{TCA}}=\underset{t\in[t_0,t_f]}{\operatorname{arg\,min}}\;d(t),
+\end{equation}
+and the corresponding miss distance is $d_{\min}=d(t_{\mathrm{TCA}})$. The point
+of closest approach (POCA) refers to the state or location associated with this
+minimum-separation event. Because each object occupies a different inertial
+position at TCA, POCA should be qualified as the point on a particular object's
+trajectory or as a point on the relative trajectory.
+
+At a smooth interior minimum, the relative position and relative velocity are
+orthogonal:
+\begin{equation}
+  \boldsymbol\rho(t_{\mathrm{TCA}})\mathbin{\cdot}
+  \dot{\boldsymbol\rho}(t_{\mathrm{TCA}})=0.
+\end{equation}
+For sustained maneuvering, POCA and TCA are control-dependent predictions rather
+than fixed properties of the original trajectories. Continuous thrust can move,
+remove, or create local minima in separation, so encounter analysis should state
+the prediction window and distinguish the global minimum from local minima.
+
+\section{TDA-informed static refueling-depot placement}
+
+Let $c_{ij}$ denote the transfer cost, expressed initially as delta-v, from
+customer orbit $i$ to candidate depot orbit $j$. For a selected depot set
+$S$, order the customer-specific costs as
+\begin{equation}
+  c_{i(1)}(S)\leq c_{i(2)}(S)\leq\cdots.
+\end{equation}
+The primary service cost is $c_{i(1)}$, while $c_{i(q)}$ measures the cost of
+accessing the $q$th depot and therefore represents $q$-fold service redundancy.
+Coverage at an allowable cost $\epsilon_*$ requires
+\begin{equation}
+  \left|\{j\in S:c_{ij}\leq\epsilon_*\}\right|\geq q
+\end{equation}
+for each required customer orbit.
+
+A topological filtration is obtained by constructing, for each $\epsilon$, a
+bipartite graph whose vertices are customer orbits and selected depots, with an
+edge $(i,j)$ whenever $c_{ij}\leq\epsilon$. The zeroth Betti number
+$\beta_0(\epsilon)$ counts connected components and exposes fragmentation. For
+the graph filtration, the first Betti number is
+\begin{equation}
+  \beta_1(\epsilon)=|E|-|V|+\beta_0(\epsilon),
+\end{equation}
+which counts independent cycles. In a bipartite service graph, cycles indicate
+alternate customer--depot paths and can be used as one interpretable redundancy
+signal. Explicit degree-based $q$-coverage and failure analysis remain necessary;
+$\beta_1$ alone does not certify operational redundancy.
+
+A baseline multi-criteria objective may combine weighted mean primary delta-v,
+the $q$th-depot delta-v, worst cost after a single depot failure, coverage
+deficit, and topological fragmentation. The terms should be normalized or
+reported as a Pareto frontier rather than combined with arbitrary coefficients.
+The transfer-cost model is a separate layer and should ultimately include
+epoch, phasing, time of flight, finite thrust, propellant delivery, replenishment,
+and other operational constraints.
+
+\subsection{Dynamic service network}
+
+A dynamic implementation replaces the static cost matrix with a directed,
+time-dependent set of transfer opportunities. A transfer arc may be written
+\begin{equation}
+  a=(i,j,t_{\mathrm{dep}},t_{\mathrm{arr}},m_0,v),
+\end{equation}
+where $m_0$ is initial vehicle mass and $v$ identifies the vehicle or propulsion
+model. Each arc carries a vector of costs and attributes, including delta-v,
+propellant mass, time of flight, and probability of success. Such costs are not
+generally symmetric and need not satisfy the triangle inequality.
+
+The operational system can be represented as a directed time-expanded network.
+For depot $j$, a basic inventory balance is
+\begin{equation}
+  I_{j,t+1}=I_{j,t}+D_{j,t}-S_{j,t}-L_{j,t},
+\end{equation}
+where $D$ is delivered propellant, $S$ is serviced demand, and $L$ represents
+boil-off and other losses. Redundancy should distinguish geometric $q$-coverage,
+multiple time-respecting service paths, and sufficient inventory and vehicle
+capacity along those paths.
+
+Because service complexes can both gain and lose edges over time, ordinary
+nested persistence does not directly describe their temporal evolution. Snapshot
+persistence provides a baseline; zigzag persistence can represent additions and
+deletions; and persistent path homology is a candidate for retaining directed
+transfer asymmetry. These topological summaries should be compared against
+standard graph measures and tested under uncertainty before inclusion in an
+optimization objective.
+
+\end{document}
