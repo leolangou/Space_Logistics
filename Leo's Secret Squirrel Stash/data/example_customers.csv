@@ -1,7 +1,0 @@
-name,altitude_km,inclination_deg,raan_deg,weight
-LEO-A,550,53,0,3
-LEO-B,550,53,60,3
-LEO-C,550,53,120,3
-MEO-A,20200,55,0,2
-MEO-B,20200,55,120,2
-GEO-A,35786,0,0,1

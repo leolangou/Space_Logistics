@@ -1,0 +1,9 @@
+{
+  "model": "F0: two-body propagation; phasing + plane-change + radial/Hohmann cost",
+  "reference_epoch_utc": "2026-09-03T20:48:38.536416+00:00",
+  "time_step_minutes": 30,
+  "study_duration_hours": 24.0,
+  "n_times": 48,
+  "n_targets": 102,
+  "n_candidate_stations": 36
+}
