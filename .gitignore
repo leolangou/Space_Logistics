@@ -23,3 +23,7 @@ __pycache__/
 # OS
 .DS_Store
 Thumbs.db
+
+# Generated NEST simulation data
+*.npz
+*.npy
