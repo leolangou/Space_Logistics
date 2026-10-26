@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "mode": "snapshot",
+  "time_indices": [
+    0
+  ],
+  "flight_hours": [
+    6,
+    12,
+    24,
+    36,
+    48,
+    72,
+    96,
+    120,
+    168
+  ],
+  "max_revolutions": 7,
+  "min_perigee_alt_km": 300.0,
+  "mu_km3_s2": 398600.4418,
+  "depot_radius_km": 42164.0,
+  "reference_epoch": "2026-09-03 20:48:38.536416+00:00",
+  "time_grid_start": "2026-09-03 20:48:38.536416+00:00",
+  "grid_hash": "a4a05a051c4383da7045b7e82053399359710d7e1cb05e1c7bf15bd6ec17d8f2",
+  "tle_hash": "a5fbc2ee04501c70a6af00fc3866d5a07da6c8ab5272e74a6afae617cea35a6b"
+}

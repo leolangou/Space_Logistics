@@ -1,0 +1,25 @@
+{
+  "depot_scope": "greedy6",
+  "depot_hash": "a7c36891d04b84ab7b81e78160dfb72514af088fcf5d80f6f30e6ad005994eea",
+  "tle_hash": "a5fbc2ee04501c70a6af00fc3866d5a07da6c8ab5272e74a6afae617cea35a6b",
+  "epoch": "2026-09-03 20:48:38.536416+00:00",
+  "flight_days": [
+    0.25,
+    0.5,
+    1.0,
+    1.5,
+    2.0,
+    3.0,
+    4.0,
+    5.0,
+    7.0
+  ],
+  "max_revolutions": 7,
+  "min_perigee_alt_km": 300.0,
+  "mu": 398600.4418,
+  "shape": [
+    102,
+    6,
+    9
+  ]
+}
